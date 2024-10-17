@@ -7,6 +7,9 @@ public class Topic {
     private String tittle;
     private int duration;
     
+    public Topic() {
+    }
+    
     public Topic(String iD, String name, boolean type, String tittle, int duration) {
         ID = iD;
         this.name = name;
