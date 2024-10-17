@@ -1,45 +1,39 @@
+
 package ui;
 
 import java.util.ArrayList;
-
 import utils.Input;
 
-public class Menu {
-    // Danh sách menu
-    private ArrayList<String> optList;
-    // Menu title
-    private String title;
-
-    public Menu(String title) {
+public class Menu<T> {
+    public ArrayList<String> optionList = new ArrayList<>();
+    public String title; 
+    public Menu(String title){
         this.title = title;
-        optList = new ArrayList<>();
     }
-
-//  thêm lựa chọn cho menu
-    public void addNewOpt(String newOption) {
-        optList.add(newOption);
+    //addnewOption: method thêm option vào optionlist
+    public void addNewOption(String newOption){
+        optionList.add(newOption);
     }
-
-//  in ra menu kèm số thứ tự
-    public void showMenu() {
+    
+    public void print(){
         int count = 1;
         System.out.println("________" + title + "_________");
-        for (String op : optList) {
-            System.out.println(count + ". " + op);
+        for (String op : optionList) {
+            System.out.println(count + "." + op);
             count++;
         }
-        System.out.println("0. Quit");
     }
-
-    public int getChoice() {
-        int choice;
-        do {
-            choice = Input.inputPosInt("Please enter your choice", "It must be a number");
-            if (choice < 0 || choice > optList.size()) {
-                System.out.println("Invalid choice. Please select a valid option.");
-            }
-        } while (choice < 0 || choice > optList.size());
+    public int getChoice(){
+        int choice = Input.inputPosInt("Input your choice", "Your choice must between 1 and " + optionList.size(), 1, optionList.size());
         return choice;
     }
+    
+    //hàm xin người dùng con số họ chọn và return cái object tương ứng
+    //vị trí n đó trong danh sách
+    public T ref_getChoice(ArrayList<T> options){
+        //options là brandlist: danh sách các brand
+        int choice = Input.inputPosInt("Input SEQ of brand", 
+                    "SEQ must be between 1 and " + options.size(), 1, options.size());
+        return options.get(choice-1); //vì menu 1-12 nhưng array đi từ 0-11
+    }
 }
-
